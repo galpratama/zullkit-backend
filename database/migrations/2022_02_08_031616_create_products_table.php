@@ -22,7 +22,8 @@ class CreateProductsTable extends Migration
             $table->boolean('is_figma')->default(true);
             $table->boolean('is_sketch')->default(true);
             $table->text('features');
-            $table->integer('price');
+
+            $table->bigInteger('users_id');
 
             $table->softDeletes();
             $table->timestamps();
