@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
+use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
@@ -14,7 +17,35 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        if (request()->ajax()) {
+            $query = Category::query();
+
+            return DataTables::of($query)
+                ->addColumn('action', function ($item) {
+                    return '
+                        <a class="inline-block px-2 py-1 m-1 text-white transition duration-500 bg-gray-700 border border-gray-700 rounded-md select-none ease hover:bg-gray-800 focus:outline-none focus:shadow-outline" 
+                            href="' . route('dashboard.category.edit', $item->id) . '">
+                            Edit
+                        </a>
+                        <form class="inline-block" action="' . route('dashboard.category.destroy', $item->id) . '" method="POST">
+                        <button class="px-2 py-1 m-2 text-white transition duration-500 bg-red-500 border border-red-500 rounded-md select-none ease hover:bg-red-600 focus:outline-none focus:shadow-outline" >
+                            Hapus
+                        </button>
+                            ' . method_field('delete') . csrf_field() . '
+                        </form>';
+                })
+                ->editColumn('price', function ($item) {
+                    return number_format($item->price);
+                })
+                ->editColumn('thumbnails', function ($item) {
+                    return '<img src="' . Storage::url($item->thumbnails) . '" width="100px" height="100px">';
+
+                })
+                ->rawColumns(['action','thumbnails'])
+                ->make();
+        }
+
+        return view('pages.dashboard.category.index');
     }
 
     /**
@@ -24,7 +55,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.dashboard.category.create');
     }
 
     /**
@@ -33,9 +64,21 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $data = $request->all();
+
+
+        if($request->hasFile('thumbnails'))
+        {
+            $path = $request->file('thumbnails')->store('public/gallery');
+            $data['thumbnails'] = $path;
+
+        }
+
+        Category::create($data);
+
+        return redirect()->route('dashboard.category.index');
     }
 
     /**
@@ -57,7 +100,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('pages.dashboard.category.edit',[
+            'item' => $category
+        ]);
     }
 
     /**
@@ -67,9 +112,13 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->all();
+
+        $category->update($data);
+
+        return redirect()->route('dashboard.category.index');
     }
 
     /**
@@ -80,6 +129,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('dashboard.category.index');
     }
 }

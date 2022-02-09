@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->text('features');
 
             $table->bigInteger('users_id');
+            $table->bigInteger('categories_id');
 
             $table->softDeletes();
             $table->timestamps();
