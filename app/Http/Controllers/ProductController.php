@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductRequest;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
@@ -22,11 +23,12 @@ class ProductController extends Controller
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
+                    // <a class="inline-block px-2 py-1 m-1 text-white transition duration-500 bg-blue-700 border border-blue-700 rounded-md select-none ease hover:bg-blue-800 focus:outline-none focus:shadow-outline" 
+                        //     href="' . route('dashboard.product.gallery.index', $item->id) . '">
+                        //     Gallery
+                        // </a>
                     return '
-                        <a class="inline-block px-2 py-1 m-1 text-white transition duration-500 bg-blue-700 border border-blue-700 rounded-md select-none ease hover:bg-blue-800 focus:outline-none focus:shadow-outline" 
-                            href="' . route('dashboard.product.gallery.index', $item->id) . '">
-                            Gallery
-                        </a>
+                        
                         <a class="inline-block px-2 py-1 m-1 text-white transition duration-500 bg-gray-700 border border-gray-700 rounded-md select-none ease hover:bg-gray-800 focus:outline-none focus:shadow-outline" 
                             href="' . route('dashboard.product.edit', $item->id) . '">
                             Edit
@@ -41,7 +43,12 @@ class ProductController extends Controller
                 ->editColumn('price', function ($item) {
                     return number_format($item->price);
                 })
-                ->rawColumns(['action'])
+
+                ->editColumn('thumbnails', function ($item) {
+                    return '<img src="' . Storage::url($item->thumbnails) . '" width="100px" height="100px">';
+
+                })
+                ->rawColumns(['action','thumbnails'])
                 ->make();
         }
 
@@ -68,6 +75,13 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $data = $request->all();
+
+        if($request->hasFile('thumbnails'))
+        {
+            $path = $request->file('thumbnails')->store('public/gallery');
+            $data['thumbnails'] = $path;
+
+        }
 
         Product::create($data);
 

@@ -64,13 +64,13 @@
                             <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="grid-last-name">
                                 Figma
                             </label>
-                            <input value="{{ old('is_figma') }}" name="is_figma" class="px-4 py-3 mr-2 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="checkbox"> Figma File Available
+                            <input name="is_figma" class="px-4 py-3 mr-2 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="checkbox" value="1" checked> Figma File Available
                         </div>
                         <div class="w-1/2 px-3">
                             <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="grid-last-name">
                                 Sketch
                             </label>
-                            <input value="{{ old('is_sketch') }}" name="is_sketch" class="px-4 py-3 mr-2 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="checkbox"> Sketch File Available
+                            <input name="is_sketch" class="px-4 py-3 mr-2 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="checkbox" value="1" checked> Sketch File Available
                         </div>
                     </div>
                     <div class="flex flex-wrap mb-6 -mx-3">
