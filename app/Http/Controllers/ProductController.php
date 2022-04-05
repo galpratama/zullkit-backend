@@ -80,7 +80,6 @@ class ProductController extends Controller
         {
             $path = $request->file('thumbnails')->store('public/gallery');
             $data['thumbnails'] = $path;
-
         }
 
         Product::create($data);
@@ -124,6 +123,12 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         $data = $request->all();
+
+        if($request->hasFile('thumbnails'))
+        {
+            $path = $request->file('thumbnails')->store('public/gallery');
+            $data['thumbnails'] = $path;
+        }
 
         $product->update($data);
 
