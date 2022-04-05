@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
             Product &raquo; {{ $product->name }} &raquo; Gallery
         </h2>
     </x-slot>
@@ -15,7 +15,6 @@
                 columns: [
                     { data: 'id', name: 'id', width: '5%'},
                     { data: 'url', name: 'url' },
-                    { data: 'is_featured', name: 'is_featured' },
                     {
                         data: 'action',
                         name: 'action',
@@ -29,20 +28,19 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="mb-10">
-                <a href="{{ route('dashboard.product.gallery.create', $product->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow-lg">
+                <a href="{{ route('dashboard.product.gallery.create', $product->id) }}" class="px-4 py-2 font-bold text-white bg-green-500 rounded shadow-lg hover:bg-green-700">
                     + Upload Photos
                 </a>
             </div>
-            <div class="shadow overflow-hidden sm:rounded-md">
+            <div class="overflow-hidden shadow sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <table id="crudTable">
                         <thead>
                         <tr>
                             <th class="px-2 py-4">ID</th>
                             <th class="px-6 py-4">Photo</th>
-                            <th class="px-6 py-4">Featured</th>
                             <th class="px-6 py-4">Action</th>
                         </tr>
                         </thead>

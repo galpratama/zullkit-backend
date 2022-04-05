@@ -29,10 +29,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
         Route::middleware(['admin'])->group(function () {
             Route::resource('product', ProductController::class);
-            Route::resource('category', CategoryController::class);
-            Route::resource('gallery', GalleryController::class)->shallow()->only([
+            Route::resource('product.gallery', GalleryController::class)->shallow()->only([
                 'index', 'create', 'store', 'destroy'
             ]);
+            Route::resource('category', CategoryController::class);
             Route::resource('subscription', SubscriptionController::class)->only([
                 'index', 'show', 'edit', 'update'
             ]);

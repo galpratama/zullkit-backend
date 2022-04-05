@@ -16,13 +16,9 @@ use App\Http\Controllers\API\CategoryController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
 Route::get('products', [ProductController::class, 'all']);
 Route::get('categories', [CategoryController::class, 'all']);
 
+Route::get('user', [UserController::class, 'fetch'])->middleware('auth:sanctum');
 Route::post('login', [UserController::class, 'login']);
 Route::post('register', [UserController::class, 'register']);
