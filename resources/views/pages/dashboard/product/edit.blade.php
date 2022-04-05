@@ -27,6 +27,7 @@
                 <form class="w-full" action="{{ route('dashboard.product.update', $item->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('put')
+                    <input type="hidden" name="users_id" value="{{ Auth::id() }}">
                     <div class="flex flex-wrap mb-6 -mx-3">
                         <div class="w-full px-3">
                             <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="grid-last-name">
