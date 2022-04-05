@@ -23,4 +23,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'categories_id', 'id');
     }
+    
+    public function getThumbnailsAttribute($thumbnails)
+    {
+        return config('app.url') . Storage::url($thumbnails);
+    }
 }
