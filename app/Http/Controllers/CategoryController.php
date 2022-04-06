@@ -38,7 +38,7 @@ class CategoryController extends Controller
                     return number_format($item->price);
                 })
                 ->editColumn('thumbnails', function ($item) {
-                    return '<img src="' . Storage::url($item->thumbnails) . '" width="100px" height="100px">';
+                    return '<img src="' . $item->thumbnails . '" width="100px" height="100px">';
 
                 })
                 ->rawColumns(['action','thumbnails'])

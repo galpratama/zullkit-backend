@@ -45,7 +45,7 @@ class ProductController extends Controller
                 })
 
                 ->editColumn('thumbnails', function ($item) {
-                    return '<img src="' . Storage::url($item->thumbnails) . '" width="100px" height="100px">';
+                    return '<img src="' . $item->thumbnails . '" width="100px" height="100px">';
 
                 })
                 ->rawColumns(['action','thumbnails'])
