@@ -31,7 +31,8 @@ class ProductRequest extends FormRequest
             'thumbnails' => 'nullable|image',
             'description' => 'required',
             'users_id' => 'required|exists:users,id',
-            'categories_id' => 'required|exists:categories,id'
+            'categories_id' => 'required|exists:categories,id',
+            'file' => 'nullable|string'
         ];
     }
 }
