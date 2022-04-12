@@ -10,7 +10,7 @@ class Subscription extends Model
     use HasFactory;
 
     protected $fillable = [
-        'users_id', 'start_date', 'end_date', 'payment_total', 'payment_status',
+        'users_id', 'start_date', 'end_date', 'payment_total', 'payment_status','payment_url'
     ];
     
     public function user()
