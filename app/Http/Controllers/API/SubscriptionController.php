@@ -35,7 +35,7 @@ class SubscriptionController extends Controller
         Config::$isSanitized = config('services.midtrans.isSanitized');
         Config::$is3ds = config('services.midtrans.is3ds');
 
-        $subscription = Subscription::with(['food','user'])->find($subscription->id);
+        $subscription = Subscription::with(['user'])->find($subscription->id);
 
         $midtrans = array(
             'transaction_details' => array(
