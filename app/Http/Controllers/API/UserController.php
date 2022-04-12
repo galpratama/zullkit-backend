@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
+use Laravel\Fortify\Rules\Password;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Fortify\Rules\Password;
 
 class UserController extends Controller
 {
@@ -20,7 +21,12 @@ class UserController extends Controller
      */
     public function fetch(Request $request)
     {
-        return ResponseFormatter::success($request->user(),'Data profile user berhasil diambil');
+        $user = User::where('id', Auth::user()->id)->with('subscription', function($query){
+            $query->where('payment_status','=','SUCCESS')
+                  ->where('end_date','>=',Carbon::now());
+        })->first();
+        
+        return ResponseFormatter::success($user,'Data profile user berhasil diambil');
     }
 
     /**

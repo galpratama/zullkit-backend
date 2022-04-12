@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subscription;
 use Illuminate\Support\Str;
-use App\Http\Requests\SubscriptionRequest;
+use App\Models\Subscription;
+use Illuminate\Http\Request;
 use App\Models\SubscriptionItem;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -58,7 +58,7 @@ class SubscriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(SubscriptionRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -104,7 +104,7 @@ class SubscriptionController extends Controller
      * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(SubscriptionRequest $request, Subscription $subscription)
+    public function update(Request $request, Subscription $subscription)
     {
         $data = $request->all();
 
