@@ -26,8 +26,7 @@ class SubscriptionController extends Controller
             'start_date' => Carbon::now(),
             'end_date' => Carbon::now()->addMonth(),
             'payment_total' => $request->payment_total,
-            'payment_status' => $request->payment_status,
-            'status' => $request->status
+            'payment_status' => $request->payment_status
         ]);
 
         // Konfigurasi midtrans
